@@ -3,3 +3,27 @@
 [[package]]
 name = "app"
 version = "0.1.0"
+dependencies = [
+ "builder 0.1.0",
+ "create_file 0.1.0",
+]
+
+[[package]]
+name = "builder"
+version = "0.1.0"
+dependencies = [
+ "create_file 0.1.0",
+ "exceptions 0.1.0",
+]
+
+[[package]]
+name = "create_file"
+version = "0.1.0"
+dependencies = [
+ "exceptions 0.1.0",
+]
+
+[[package]]
+name = "exceptions"
+version = "0.1.0"
+

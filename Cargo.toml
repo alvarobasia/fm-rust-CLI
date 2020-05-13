@@ -1,5 +1,8 @@
 [workspace]
 
 members = [
-    "app"
+    "app",
+    "builder",
+    "create_file",
+    "exceptions"
 ]
