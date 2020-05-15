@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 exceptions = { path = "../exceptions" }
+regex = "1"

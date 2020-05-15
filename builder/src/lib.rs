@@ -1,4 +1,3 @@
-use std::env;
 use create_file;
 use exceptions::Error;
 
@@ -7,20 +6,20 @@ pub enum Command{
     Create(String)
 } 
 
-pub fn builder<'a>(args: Vec<String>) -> Result<Command, Error<'a>> {
+pub fn builder<'a>(args: &mut Vec<String>) -> Result<Command, Error<'a>> {
 
+    if let None = args.get(1) {
+        return Err(Error::new("FEW ARGUMENTS IN THE COMMAND. "))
+    }
 
-    match args.get(1){
-        Some(arg) => if arg == "create" {
-            create_file::create_file(args.get(2))?;
-            Ok(Command::Create(arg.to_string()))
-        }else{
-           Err(Error::new("INVALID COMMAND. "))
+    match &args.get(1).unwrap()[..]{
+        "create" => {
+            create_file::create_file(&args.split_off(2))?;
+            Ok(Command::Create("create".to_string()))
         },
-        None => Err(Error::new("FEW ARGUMENTS IN THE COMMAND. "))
+         _ => Err(Error::new("INVALID COMMAND. ")),
     }
 }
-
 
 
 
@@ -29,21 +28,21 @@ mod tests {
     use super::*;
     #[test]
     fn builder_works_corretly() {
-        let args = vec!["test".to_string(), "create".to_string(), "file".to_string()];
-        assert_eq!(builder(args).unwrap(), Command::Create("create".to_string()));
+        let mut args = vec!["test".to_string(), "create".to_string(), "file".to_string()];
+        assert_eq!(builder(&mut args).unwrap(), Command::Create("create".to_string()));
     }
 
     #[test]
     #[should_panic]
     fn builder_panic_with_few_args() {
-        let args = vec!["test".to_string(), "create".to_string()];
-        builder(args).unwrap();
+        let mut args = vec!["test".to_string(), "create".to_string()];
+        builder(&mut args).unwrap();
     }
 
     #[test]
     #[should_panic]
     fn builder_panic_with_incorrect_args() {
-        let args = vec!["test".to_string(), "creat".to_string()];
-        builder(args).unwrap();
+        let mut args = vec!["test".to_string(), "creat".to_string()];
+        builder(&mut args).unwrap();
     }
 }

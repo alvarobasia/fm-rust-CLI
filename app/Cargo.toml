@@ -11,3 +11,4 @@ edition = "2018"
 builder = { path = "../builder" }
 create_file = { path = "../create_file" }
 utils = { path = "../utils" }
+colored = "1.9"
