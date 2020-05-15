@@ -4,5 +4,6 @@ members = [
     "app",
     "builder",
     "create_file",
-    "exceptions"
+    "exceptions",
+    "utils"
 ]

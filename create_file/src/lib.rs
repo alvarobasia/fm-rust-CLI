@@ -1,7 +1,7 @@
 use std::fs::File;
 use exceptions::Error;
 
-pub fn create_file<'a, 'b>(filename: Option<String>) -> Result<File, Error<'b> >{
+pub fn create_file<'a, 'b>(filename: Option<&String>) -> Result<File, Error<'b> >{
     
     if let None = filename {
         return Err(Error::new("NO FILE NAME PASSED. "));
@@ -20,8 +20,16 @@ pub fn create_file<'a, 'b>(filename: Option<String>) -> Result<File, Error<'b> >
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
+    fn create_file_correctly() {
+        assert_eq!(
+            match create_file(Some(&"test.txt".to_string())){
+                Ok(_) => "Ok",
+                Err(_) => "Err"
+            },
+            "Ok"
+        )
+    }   
 }
